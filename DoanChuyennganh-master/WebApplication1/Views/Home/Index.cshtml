@@ -1,0 +1,110 @@
+﻿@using WebApplication1.Models.DAO;
+@using WebApplication1.Models.EF;
+@model sinhvien
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@section menu{
+    <tr id="menutable" >
+        <td style="color:white"><a href="@Url.Action("Index","Home",new {mssv = Model.mssv })" class="btn btn-primary">Bảng Điểm</a></td>
+        <td style="color:white"><a href="@Url.Action("xemthongtin","SinhVien",new {mssv = Model.mssv })" class="btn btn-primary"> Xem Thông Tin</a></td>
+        <td style="color:white" colspan="2"><a href="@Url.Action("Dangxuat","SinhVien")" class="btn btn-primary" >Đăng xuất </a></td>
+
+
+
+    </tr>
+
+
+}
+@section tablehead{
+
+    <thead>
+        <tr>
+            <td align="center" colspan="13">
+
+                <i style="color:red">(Lưu ý:  Bảng điểm này chỉ mang tính tham khảo. Sinh viên xem bảng điểm gốc để đối chiếu tại Văn phòng Khoa. Mọi thắc mắc xin liên hệ Phòng Đào Tạo)</i>
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="2">
+                Năm học<br>
+                Học kỳ
+            </th>
+            <th rowspan="2">
+                MAMH
+            </th>
+            <th rowspan="2">
+                Tên môn học
+            </th>
+
+
+
+
+
+        </tr>
+        <tr>
+            <th>
+                Điểm<br>quá<br>trình
+            </th>
+            <th>
+                Điểm<br>thi giữa<br>HP
+            </th>
+            <th>
+                Điểm<br>thi cuối<br>HP
+            </th>
+            <th>
+                Số lần<br>thi
+            </th>
+            <th>Tổng<br>kết</th>
+        </tr>
+    </thead>
+
+}
+<table align="center" border="0" cellspacing="0" cellpadding="3">
+    <tbody>
+        <tr>
+            <th colspan="2">THÔNG TIN SINH VIÊN</th>
+        </tr>
+        <tr>
+            <td>MSSV</td>
+            <td>:@Model.mssv</td>
+        </tr>
+        <tr>
+            <td>Họ tên</td>
+            <td>:@Model.hoten</td>
+        </tr>
+        <tr>
+            <td>Lớp</td>
+            <td>:@Model.lop</td>
+        </tr>
+        <tr>
+        @using (Ajax.BeginForm("XemDiem", "sinhvien", new AjaxOptions { UpdateTargetId = "resultaa", OnBegin = "", InsertionMode = InsertionMode.Replace, HttpMethod = "POST", OnSuccess = "", LoadingElementId = "loadingElement2", }))
+        {
+        <td>Học kỳ: <input type="number" min="1" max="3" step="1" name="hocky" /></td>
+         <td>   Năm: <input type="number" min="2014" step="1" name="nam" /></td>
+        }
+            </tr>
+        <tr>
+            <td>
+                <a href="@Url.Action("xemtatcadiem","SinhVien",new { MSSV = Model.mssv })" class="center-block btn btn-primary">Xem điểm</a>    
+            </td>
+        </tr>
+    </tbody>
+    
+</table>
+
+<style>
+    #btnXemDiem {
+        text-decoration: none;
+        background-color: #336699;
+        color: white;
+        padding: 5px;
+    }
+
+        #btnXemDiem:hover {
+            -webkit-transition: all .5s ease-out;
+        }
+</style>
+
+

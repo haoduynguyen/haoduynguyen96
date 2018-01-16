@@ -1,0 +1,116 @@
+﻿@using WebApplication1.Models.DAO;
+@using WebApplication1.Models.EF;
+@model List<DiemSinhVien>
+@{
+    ViewBag.Title = "xemtatcadiem";
+    Layout = "~/Views/Shared/Layout.cshtml";
+}
+@section menu{
+  @{ sinhvien sv1 = ViewBag.SinhVien;}
+    <tr id="menutable">
+        <td style="color:white"><a href="@Url.Action("Index","Home",new {mssv = sv1.mssv })" class="btn btn-primary">Bảng Điểm</a></td>
+        <td style="color:white">@Ajax.ActionLink("Xem Thông Tin", "xemthongtin", "SinhVien", new { mssv = sv1.mssv }, new AjaxOptions { HttpMethod = "POST", InsertionMode = InsertionMode.Replace, UpdateTargetId = "result" }, new { @class = "btn btn-primary" })</td>
+        <td style="color:white" colspan="2"><a href="@Url.Action("Dangxuat","SinhVien")" class="btn btn-primary">Đăng xuất </a></td>
+      
+    </tr>
+}
+
+@section tablehead{
+    
+    <thead>
+        <tr>
+            <td align="center" colspan="13">
+
+                <i style="color:red">(Lưu ý:  Bảng điểm này chỉ mang tính tham khảo. Sinh viên xem bảng điểm gốc để đối chiếu tại Văn phòng Khoa. Mọi thắc mắc xin liên hệ Phòng Đào Tạo)</i>
+            </td>
+        </tr>
+        <tr>
+            <th rowspan="2">
+                Năm học<br>
+                Học kỳ
+            </th>
+            <th rowspan="2">
+                MAMH
+            </th>
+            <th rowspan="2">
+                Tên môn học
+            </th>
+
+
+
+
+
+        </tr>
+        <tr>
+            <th>
+                Điểm<br>quá<br>trình
+            </th>
+            <th>
+                Điểm<br>thi giữa<br>HP
+            </th>
+            <th>
+                Điểm<br>thi cuối<br>HP
+            </th>
+            <th>
+                Số lần<br>thi
+            </th>
+            <th>Tổng<br>kết</th>
+        </tr>
+    </thead>
+
+}
+@{ sinhvien sv = ViewBag.SinhVien;}
+<table align="center" border="0" cellspacing="0" cellpadding="3">
+    <tbody>
+        <tr>
+            <th colspan="2">THÔNG TIN SINH VIÊN</th>
+        </tr>
+        <tr>
+            <td>MSSV</td>
+            <td>:@sv.mssv</td>
+        </tr>
+        <tr>
+            <td>Họ tên</td>
+            <td>:@sv.hoten</td>
+        </tr>
+        <tr>
+            <td>Lớp</td>
+            <td>:@sv.lop</td>
+        </tr>
+       
+        <tr></tr>
+    </tbody>
+</table>
+@section table{
+
+    @foreach (DiemSinhVien diem in Model)
+    {
+
+       
+
+        <tr style="text-align:center">
+            <td>@diem.Namhoc - @diem.Hocky</td>
+            <td>@diem.Mamh</td>
+            <td>@diem.Tenmh</td>
+
+
+
+            <td>@diem.Diemqt</td>
+            <td>@diem.Diemgk</td>
+            <td>@diem.Diemck</td>
+
+
+
+            <td>@diem.Solanthi</td>
+            <td>@diem.Tongdiem</td>
+
+
+
+        </tr>
+
+    }
+
+}
+
+
+
